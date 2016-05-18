@@ -1,6 +1,8 @@
 --sequence e un iteraror si se acceseaza cu:
 --seq_resurse.currval , seq_resurse.nextval
+DROP SEQUENCE seq_useri;
 /
+CREATE SEQUENCE seq_useri
 MINVALUE 1
 START WITH 1
 INCREMENT BY 1
@@ -18,6 +20,6 @@ CREATE TABLE cont_useri
   );
 /
 
-insert into cont_useri(id_user,username,email,pass) values(2,'SirAlex','alex@yahoo.com','pass');
+insert into cont_useri(id_user,username,email,pass) values(seq_useri.nextval,'SirAlex','alex@yahoo.com','pass');
 /
 COMMIT;
