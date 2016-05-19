@@ -9,11 +9,12 @@ INCREMENT BY 1
 CACHE 10;
 /
 DROP TABLE resurse_oop;
+/
 Create Table resurse_oop
 (
  id_res NUMBER(10), 
  obiect RESURSA,
- id_user NUMBER(10), 
+ id_user NUMBER(10) Default null, 
  popularitate Number(10) Default 0
 , PRIMARY KEY ( ID_RES ) );
 /
@@ -22,7 +23,6 @@ ADD CONSTRAINT fkSN_user
   FOREIGN KEY (id_user)
   REFERENCES cont_useri(id_user)
    ON DELETE SET NULL;
- /
 /
 alter table resurse_oop
    add constraint FK_tip_res
