@@ -16,6 +16,13 @@ BEGIN
       (seq_resurse.nextval, pizzerie(v_nume, dbms_random.value(43,48), dbms_random.value(20,29), 
       localitat, to_char(dbms_random.value(111111111,999999999), '999999999')), v_id_user  );
       ---------------------
+	  -- populare banca nume, lat, longit, oras, adresa, tel,program clienti, descriere
+	  insert into resurse_oop r(id_res, r.obiect, id_user) values
+      (seq_resurse.nextval, banca(v_nume, dbms_random.value(43,48), dbms_random.value(20,29), 
+      localitat, 'Ibraileanu 6', to_char(dbms_random.value(111111111,999999999), '999999999'), 'luni-vineri: 8-20'), v_id_user  );
+	  
+	  
+	  
   END LOOP;
 END;
 /

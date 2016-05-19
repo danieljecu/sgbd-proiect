@@ -34,7 +34,7 @@ Constructor Function banca( p_nume varchar2 ,lat number, longit number, oras var
   Return;
   End;
   
-  Constructor Function banca( p_nume varchar2 ,lat number, longit number, oras varchar2,adresa varchar2 ,tel varchar2, descrier varchar2)
+  Constructor Function banca( p_nume varchar2 ,lat number, longit number, oras varchar2,adresa varchar2 ,tel varchar2,program_clienti varchar2, descrier varchar2)
   RETURN SELF as RESULT 
    as 
   Begin
@@ -51,6 +51,7 @@ Constructor Function banca( p_nume varchar2 ,lat number, longit number, oras var
    self.descriere:=descrier;
 -----------------------------
   self.telefon:=tel;
+   self.prog:=program_clienti;
   
   
   Return;
