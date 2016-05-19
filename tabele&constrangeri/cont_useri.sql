@@ -13,8 +13,8 @@ DROP TABLE cont_useri cascade constraints;
 CREATE TABLE cont_useri
   (
     id_user  NUMBER(10) ,
-    username VARCHAR2(15) UNIQUE,
-    email    VARCHAR2(20),
+    username VARCHAR2(50) UNIQUE,
+    email    VARCHAR2(30),
     pass     VARCHAR2(15),
     PRIMARY KEY(id_user)
   );
