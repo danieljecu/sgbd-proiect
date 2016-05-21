@@ -28,22 +28,20 @@ DECLARE
   v_latitudine number(8,4);
   v_latitudine number(8,4);
   v_id_user number(10);
-  cursor stud_num 
+  CURSOR c_id_useri IS
+      SELECT id_user FROM cont_useri;
 BEGIN
-  for i IN 1..5000 LOOP
-      select * into localitat from (select * from localitate order by dbms_random.value) where rownum = 1 ;
-      
+  for v_id_user IN 1..c_id_useri LOOP
+  
 	  ---pt toti useri cursor adaugi resurse fav
-      v_id_user:= dbms_random.value(1,5000);
+      --v_id_user:= dbms_random.value(1,5000);
 	  
-	  -----------------
+	  ------------------
       insert into resursefav ( id_user, id_res )
 	  SELECT v_id_user, id_res FROM resurse_oop r
 	  where r.tip_res='pizzerie'
 	  order by dbms_random.value;
 	  ------------------
-	  
-	  
   END LOOP;
 END;
 /

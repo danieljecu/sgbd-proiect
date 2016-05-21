@@ -2,7 +2,7 @@ DROP TYPE dentist force;
 /
 Create TYPE dentist UNDER resursa
 (telefon varchar2(15),
- prog varchar2(100),
+ program varchar2(100),
 
 Constructor Function dentist( p_nume varchar2 ,lat number, longit number, oras varchar2,adresa varchar2 ,tel varchar2, program_clienti varchar2)
   RETURN SELF as RESULT ,
@@ -29,7 +29,7 @@ Constructor Function dentist( p_nume varchar2 ,lat number, longit number, oras v
   self.id_tara:='RO';
 ----------------------------
   self.telefon:=tel;
-  self.prog:=program_clienti;
+  self.program:=program_clienti;
   
   Return;
   End;
@@ -51,7 +51,7 @@ Constructor Function dentist( p_nume varchar2 ,lat number, longit number, oras v
    self.descriere:=descrier;
 -----------------------------
   self.telefon:=tel;
-  self.prog:=program_clienti;
+  self.program:=program_clienti;
   
   
   Return;

@@ -1,49 +1,30 @@
-create or replace procedure recalc_popularity;
+drop procedure recalc_popularity;
 /
---initializare popularitate cu 0
- update resurse_oop r 
-      set r.popularitate = 0
-      --where r.id_res= v_id;
-	  ---------------
-/
-DECLARE 
-   CURSOR update_popularitate IS
+create or replace procedure recalc_popularity
+IS
+--pocedura se apeleaaza numai din tigger sau cu triggerul disable
+   CURSOR c_resurse_oop IS
       SELECT * FROM resurse_oop r FOR UPDATE OF r.popularitate NOWAIT;
 BEGIN
    FOR v_linie IN update_popularitate LOOP
-       dbms_output.put_line(v_linie.popularitate);
-         
-         UPDATE resurse_oop r
-		 SET r.popularitate= (select count(*) from resursefav where id_res= v_linie.id_res)
-		 WHERE CURRENT OF update_popularitate;
-      
-   END LOOP;
-END;
-	  ---------------
-CURSOR c1
-IS
-  SELECT id_res, r.popularitate
-  FROM resurse_oop
-  FOR UPDATE OF r.popularitate;
--------------------
---pentru fiecare resursa id_res = VAL
+--pentru fiecare resursa id_res = v_linie.id_res
 --se numara de cate ori apare in resurse fav
--- select id_res, count(*) into v_count from resursefav where id_res= VAL
---
--- update resurse_oop r 
-  --set r.popularitate = v_count
-      --where r.id_res= v_id;
--------------------sau
--- select id_res, count(*) from resursefav 
--- group by id_res
--------------------
+       dbms_output.put_line(v_linie.popularitate);
+      ------------------
+      UPDATE resurse_oop r
+      SET r.popularitate= (select count(*) from resursefav where id_res= v_linie.id_res)
+      WHERE CURRENT OF c_resurse_oop;
+      -------------------
+   END LOOP;
+END recalc_popularity;
+----------------------------------------------------------
 /
 drop trigger trigger_popularity;
 /
 Create or replace trigger trigger_popularity
 After
     INSERT OR
-    UPDATE OR
+    UPDATE id_res OR
     DELETE
 on resursefav
  FOR EACH ROW
@@ -59,10 +40,19 @@ BEGIN
       set r.popularitate = r.popularitate+1
       where r.id_res= v_id;
       
-      WHEN UPDATING then
+      WHEN UPDATING(id_res) then
        DBMS_OUTPUT.PUT_LINE('Updateing'); 
-       ---old
-       ---new
+
+	--1.Daca fac update pe id_user nu se schimba nimic
+	--2.Daca fac update pe id_res se schimba: 
+		--a.	popularitate(:new.id_res)+=1
+		update resurse_oop r 
+		set r.popularitate = r.popularitate+1
+		where r.id_res= :new.id_res;
+		--b.	popularitate(:old.id_res)-=1
+		update resurse_oop r 
+		set r.popularitate = r.popularitate-1
+		where r.id_res= :old.id_res;    
     
     WHEN DELETING THEN
     v_id:= :old.id_res;
