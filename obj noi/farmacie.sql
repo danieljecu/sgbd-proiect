@@ -2,7 +2,7 @@ DROP TYPE farmacie force;
 /
 Create TYPE farmacie UNDER resursa
 (telefon varchar2(15),
- program varchar2(100),
+ prog varchar2(100),
 
 Constructor Function farmacie( p_nume varchar2 ,lat number, longit number, oras varchar2,adresa varchar2 ,tel varchar2)
   RETURN SELF as RESULT ,
@@ -14,7 +14,7 @@ OVERRIDING member procedure afiseaza_informatii
 /
 ------------------------------------------------------
 Create or replace TYPE BODY farmacie AS
-Constructor Function farmacie( p_nume varchar2 ,lat number, longit number, oras varchar2,adresa varchar2 ,tel varchar2,program_clienti varchar2)
+Constructor Function farmacie( p_nume varchar2 ,lat number, longit number, oras varchar2,adresa varchar2 ,tel varchar2)
   RETURN SELF as RESULT 
    as 
   Begin
@@ -30,11 +30,10 @@ Constructor Function farmacie( p_nume varchar2 ,lat number, longit number, oras 
   self.descriere:=null;
 ---------------------------
   self.telefon:=tel;
-  self.program:=program_clienti;
   Return;
   End;
   
-  Constructor Function farmacie( p_nume varchar2 ,lat number, longit number, oras varchar2,adresa varchar2 ,tel varchar2,program_clienti varchar2, descrier varchar2)
+  Constructor Function farmacie( p_nume varchar2 ,lat number, longit number, oras varchar2,adresa varchar2 ,tel varchar2, descrier varchar2)
   RETURN SELF as RESULT 
    as 
   Begin
@@ -51,7 +50,6 @@ Constructor Function farmacie( p_nume varchar2 ,lat number, longit number, oras 
    self.descriere:=descrier;
 -----------------------------
   self.telefon:=tel;
-  self.program:=program_clienti;
   
   
   Return;
