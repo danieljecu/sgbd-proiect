@@ -1,5 +1,15 @@
 --sequence e un iteraror si se acceseaza cu:
 --seq_resurse.currval , seq_resurse.nextval
+update resurse_oop set popularitate = 0;
+delete from resurse_oop ;
+delete from resursefav ;
+/
+insert into resursefav ( id_user, id_res ) values (14, 4015);
+/
+delete from resursefav where  id_user=14 and id_res=4015;
+/
+update resursefav set id_res= 4016 where  id_user=14 and id_res=4015;
+/
 DROP SEQUENCE seq_resurse;
 /
 CREATE SEQUENCE seq_resurse
@@ -8,7 +18,7 @@ START WITH 1
 INCREMENT BY 1
 CACHE 10;
 /
-DROP TABLE resurse_oop;
+DROP TABLE resurse_oop cascade constraints;
 /
 Create Table resurse_oop
 (

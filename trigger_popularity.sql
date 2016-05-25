@@ -6,26 +6,28 @@ IS
    CURSOR c_resurse_oop IS
       SELECT * FROM resurse_oop r FOR UPDATE OF r.popularitate NOWAIT;
 BEGIN
-   FOR v_linie IN update_popularitate LOOP
+   FOR v_linie IN c_resurse_oop LOOP
 --pentru fiecare resursa id_res = v_linie.id_res
 --se numara de cate ori apare in resurse fav
        dbms_output.put_line(v_linie.popularitate);
       ------------------
       UPDATE resurse_oop r
-      SET r.popularitate= (select count(*) from resursefav where id_res= v_linie.id_res)
+      SET r.popularitate= (select count(*) from resursefav rf where rf.id_res= v_linie.id_res)
       WHERE CURRENT OF c_resurse_oop;
       -------------------
    END LOOP;
 END recalc_popularity;
 ----------------------------------------------------------
 /
+BEGIN recalc_popularity ; END;
+/
 drop trigger trigger_popularity;
 /
 Create or replace trigger trigger_popularity
 After
     INSERT OR
-    UPDATE id_res OR
-    DELETE
+    UPDATE of id_res
+    OR DELETE
 on resursefav
  FOR EACH ROW
  
@@ -40,7 +42,7 @@ BEGIN
       set r.popularitate = r.popularitate+1
       where r.id_res= v_id;
       
-      WHEN UPDATING(id_res) then
+      WHEN UPDATING('ID_RES') then
        DBMS_OUTPUT.PUT_LINE('Updateing'); 
 
 	--1.Daca fac update pe id_user nu se schimba nimic

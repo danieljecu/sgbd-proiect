@@ -3,11 +3,11 @@ DROP TYPE resursa force;
 CREATE or REPLACE TYPE resursa as OBJECT
 (
     tip_res     VARCHAR2(20),-- REFERENCES categ(tip_res)
-    nume        VARCHAR2(20),
+    nume        VARCHAR2(50),
     -------------------------------------
     latitudine  NUMBER(8,4) , -- float cu 4 zecimale de obicei
     longitudine NUMBER(8,4), --float cu 4 zecimale de obicei
-    adresa_strazii VARCHAR2(40 BYTE) ,
+    adresa_strazii VARCHAR2(100 BYTE) ,
     cod_postal VARCHAR2(12 BYTE) ,
     oras       VARCHAR2(30 BYTE) , --Not Null
     id_tara    CHAR(2 BYTE) , -- REFERENCES tari(id_tara)
