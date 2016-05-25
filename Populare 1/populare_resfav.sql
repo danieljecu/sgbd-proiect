@@ -38,10 +38,10 @@ BEGIN
 	  ---pt toti useri cursor adaugi resurse fav
       --v_id_user:= dbms_random.value(1,5000);
 	  ------------------
---      insert into resursefav ( id_user, id_res )
---	  SELECT v_linie.id_user, id_res FROM resurse_oop r
---	  where r.obiect.tip_res='pizzerie' and rownum<=10
---	  order by dbms_random.value;
+      insert into resursefav ( id_user, id_res )
+	  SELECT v_linie.id_user, id_res FROM resurse_oop r
+	  where r.obiect.tip_res='pizzerie' and rownum<=10
+	  order by dbms_random.value;
 	  ------------------
      insert into resursefav ( id_user, id_res )
 	  SELECT v_linie.id_user, id_res FROM resurse_oop r

@@ -8,7 +8,7 @@ Create index ix_nume on resurse_oop (UPPER(obiect.nume));
 ----------------------------------------------------
 explain plan for 
  select r.id_res, r.OBIECT.nume  from resurse_oop r 
-where r.obiect.latitudine between  47.173926 - 1 and  47.173926 + 1
+where r.obiect.latitudine between  37.173926 - 1 and  37.173926 + 1
 and r.obiect.longitudine between 27.574707 - 1 and 27.574707 + 1;
 select * from table (dbms_xplan.display);
 /
